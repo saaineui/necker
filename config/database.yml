@@ -8,11 +8,16 @@ default: &default
 development:
   <<: *default
   database: necker_development
-
+  user: necker
+  password: necker_pass
+  host: localhost
 
 test:
   <<: *default
   database: necker_test
+  user: necker
+  password: necker_pass
+  host: localhost
 
 #
 # On Heroku and other platform providers, you may have a full connection URL
