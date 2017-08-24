@@ -1,24 +1,24 @@
-# README
+# Necker
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<img src="https://travis-ci.org/saaineui/necker.svg?branch=master" />
 
-Things you may want to cover:
+Repository of open data visualizations.
 
-* Ruby version
+## Dependencies
 
-* System dependencies
+ - Ruby 2.4.0
+ - Rails 5.1.2
+ - Postgresql
+ 
+## Database setup
 
-* Configuration
+Create the test and dev databases and user specified in config/database.yml.
 
-* Database creation
+Production setup assumes you are using Heroku.
 
-* Database initialization
+## Testing
 
-* How to run the test suite
+Rspec, Shoulda, and SimpleCov are being used.
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+ - `bundle exec rspec`
+ 
