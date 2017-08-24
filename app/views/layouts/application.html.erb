@@ -11,6 +11,11 @@
   </head>
 
   <body>
+    <div class="flash">
+       <p class="notice"><%= tag.span notice if notice %></p>
+       <p class="alert"><%= tag.span alert if alert %></p>
+    </div>
     <%= yield %>
+    <%= render partial: 'layouts/footer' %>
   </body>
 </html>

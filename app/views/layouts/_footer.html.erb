@@ -1,0 +1,7 @@
+<footer>
+  <% if admin_signed_in? %>
+    <%= link_to "Log out", destroy_admin_session_path, method: :delete %>
+  <% elsif controller_name != 'sessions' %>
+    <%= link_to "Log in", new_admin_session_path %>
+  <% end %>
+</footer>

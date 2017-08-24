@@ -1,0 +1,4 @@
+eve:
+  email: eve@necker.com
+  encrypted_password: <%= Admin.new.send(:password_digest, 'password89') %>
+  
