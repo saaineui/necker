@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <tr>
+      <th>
+        Datasheets
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @datasheets.each do |datasheet| %>
+    <tr>
+      <td>
+        <%= link_to datasheet.name, admin_datasheet_path(datasheet) %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

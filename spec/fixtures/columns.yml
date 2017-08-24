@@ -1,0 +1,9 @@
+donors_name:
+  datasheet: donors
+  name: Name
+  number: false
+  
+donors_donation:
+  datasheet: donors
+  name: Donation
+  number: true

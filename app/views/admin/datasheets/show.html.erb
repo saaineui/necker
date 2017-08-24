@@ -1,0 +1,23 @@
+<h2><%= @datasheet.name %></h2>
+<table>
+  <thead>
+    <tr>
+      <% @datasheet.columns.order(:id).each do |column| %>
+      <th>
+        <%= column.name %>
+      </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+  <% @datasheet.rows.each do |row| %>
+    <tr>
+      <% row.cells.order(:column_id).each do |cell| %>
+        <td>
+          <%= cell.text_val %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

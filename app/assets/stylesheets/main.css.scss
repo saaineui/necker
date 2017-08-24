@@ -1,6 +1,6 @@
 body { text-align: center; font-family: HelveticaNeue-Light, Helvetica, sans-serif; font-weight: 300; }
 
-footer { position: fixed; bottom: 0px; left: 0px; padding: 0.5em 0px; width: 100%; min-height: 1em; border-top: 1px solid #f8f8f8; }
+footer { position: fixed; bottom: 0px; left: 0px; padding: 0.5em 0px; width: 100%; min-height: 1em; border-top: 1px solid #f8f8f8; background: rgba(255, 255, 255, 0.88) }
 
 a { color: #a5f; text-decoration: none; }
 a:hover { color: inherit; }
@@ -8,14 +8,20 @@ a:hover { color: inherit; }
 .flash span { color: #fff; background: rgba(170, 85, 255, 0.4); border-radius: 0.5em; padding: 0.5em; }
 .flash .alert span { background: rgba(255, 0, 0, 0.4); }
 
-input[type=email], input[type=password] { padding: 0.5em; width: 240px; max-width: 90%; height: 1em; }
+input[type=text], input[type=email], input[type=password] { padding: 0.5em; width: 240px; max-width: 90%; height: 1em; }
 .field { margin: 1em auto; }
 
-.wrap { width: 300px; background: #f8f8f8; margin: 0 auto; padding: 25px; }
+.wrap { width: 31.33%; background: #f8f8f8; margin: 0 1% 1em 1%; padding: 25px; box-sizing: border-box; float: left; }
 .wrap:hover { background: #fefefe; }
 
 svg.necker-cube { display: block; width: 90%; max-width: 240px; height: auto; margin: 0.25em auto; }
-svg.necker-cube line { stroke: #a5f; stroke-width: 2px; }
+svg.necker-cube line { stroke: #000; stroke-width: 2px; }
 
 .home-link { font-weight: 700; font-size: 1.15em; }
+a .home-link svg.necker-cube line { stroke: #a5f; }
 a:hover .home-link svg.necker-cube line { stroke: #000; }
+
+table { text-align: left; margin: 0 auto 3em auto; }
+th, td { border-bottom: 1px solid #000; padding: 0.125em; }
+
+header svg.necker-cube { width: 80px; }

@@ -1,3 +1,5 @@
 class LandingController < ApplicationController
-  def home; end
+  def home
+    @datasheets = Datasheet.all
+  end
 end

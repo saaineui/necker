@@ -1,0 +1,10 @@
+    <header>
+      <h1><%= link_to 'Necker', root_path %></h1>
+      <p><%= render partial: 'shared/necker_cube' %></p>
+      <% if admin_signed_in? %>
+      <p>
+        <%= link_to 'All Datasheets', admin_datasheets_path %> / 
+        <%= link_to 'Upload CSV', new_admin_datasheet_path %>
+      </p>
+      <% end %>
+    </header>
