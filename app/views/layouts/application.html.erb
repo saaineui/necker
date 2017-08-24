@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>Necker</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
@@ -16,7 +18,9 @@
        <p class="notice"><%= tag.span notice if notice %></p>
        <p class="alert"><%= tag.span alert if alert %></p>
     </div>
-    <%= yield %>
+    <div id="container">
+      <%= yield %>
+    </div>
     <%= render partial: 'layouts/footer' %>
   </body>
 </html>

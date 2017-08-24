@@ -1,15 +1,33 @@
+$primary: #a5f;
+$pale-primary: rgba(170, 85, 255, 0.4);
+
 body { text-align: center; font-family: HelveticaNeue-Light, Helvetica, sans-serif; font-weight: 300; }
 
-footer { position: fixed; bottom: 0px; left: 0px; padding: 0.5em 0px; width: 100%; min-height: 1em; border-top: 1px solid #f8f8f8; background: rgba(255, 255, 255, 0.88) }
+footer { position: fixed; bottom: 0px; left: 0px; padding: 0.5em 0px; width: 100%; min-height: 1em; border-top: 1px solid #ccc; background: rgba(255, 255, 255, 0.88) }
 
-a { color: #a5f; text-decoration: none; }
+a { color: $primary; text-decoration: none; }
 a:hover { color: inherit; }
 
-.flash span { color: #fff; background: rgba(170, 85, 255, 0.4); border-radius: 0.5em; padding: 0.5em; }
+.flash span { color: #fff; background: $pale-primary; border-radius: 0.5em; padding: 0.5em; }
 .flash .alert span { background: rgba(255, 0, 0, 0.4); }
 
-input[type=text], input[type=email], input[type=password] { padding: 0.5em; width: 240px; max-width: 90%; height: 1em; }
+input[type=text], input[type=email], input[type=password], textarea { 
+  padding: 0.75em; 
+  width: 240px; 
+  max-width: 90%; 
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ccc;
+  &:focus {
+    background: rgba(170, 85, 255, 0.2);
+    border-color: $primary;
+    outline: none;
+    outline-offset: 0px;
+  }
+}
 .field { margin: 1em auto; }
+
+#container { margin-bottom: 3em; }
 
 .wrap { width: 31.33%; background: #f8f8f8; margin: 0 1% 1em 1%; padding: 25px; box-sizing: border-box; float: left; }
 .wrap:hover { background: #fefefe; }
@@ -17,11 +35,22 @@ input[type=text], input[type=email], input[type=password] { padding: 0.5em; widt
 svg.necker-cube { display: block; width: 90%; max-width: 240px; height: auto; margin: 0.25em auto; }
 svg.necker-cube line { stroke: #000; stroke-width: 2px; }
 
-.home-link { font-weight: 700; font-size: 1.15em; }
-a .home-link svg.necker-cube line { stroke: #a5f; }
+.home-link { font-weight: 700; font-size: 1.15em; line-height: 1.25em; }
+.home-link span { display: block; min-height: 2.5em; margin-bottom: 0.5em; }
+a .home-link svg.necker-cube line { stroke: $primary; }
 a:hover .home-link svg.necker-cube line { stroke: #000; }
 
-table { text-align: left; margin: 0 auto 3em auto; }
-th, td { border-bottom: 1px solid #000; padding: 0.125em; }
+table { text-align: left; margin: 0 auto 1em auto; }
+th, td { border-bottom: 1px solid #aaa; padding: 0.125em; }
+tr:last-child td { border-bottom: none; }
 
 header svg.necker-cube { width: 80px; }
+
+@media only screen and (max-width: 1000px) {
+  .wrap { width: 48%; }
+}
+
+@media only screen and (max-width: 720px) {
+  .wrap { width: 98%; max-width: 400px; float: none; margin: 0 auto 1em auto; }
+  .home-link span { min-height: 0px; }
+}

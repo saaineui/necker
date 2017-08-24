@@ -1,16 +1,20 @@
 <h2>Upload a CSV:</h2>
-<%= form_for @datasheet, url: admin_datasheets_path do |f| %>
-  <div class="field">
-    <%= f.label :name, 'Name of this chart or datasheet:' %><br />
-    <%= f.text_field :name, autofocus: true %>
-  </div>
+<table>
+  <tbody>
+    <%= form_for @datasheet, url: admin_datasheets_path do |f| %>
+      <tr>
+        <td><%= f.label :name, 'Name of this chart or datasheet:' %></td>
+        <td><%= f.text_field :name, autofocus: true %></td>
+      </tr>
 
-  <div class="field">
-    <%= f.label :file, 'Upload your CSV:' %><br />
-    <%= f.file_field :file %>
-  </div>
+      <tr>
+        <td><%= f.label :file, 'Upload your CSV:' %></td>
+        <td><%= f.file_field :file %></td>
+      </tr>
 
-  <div class="actions">
-    <%= f.submit 'Upload Data' %>
-  </div>
-<% end %>
+      <tr>
+        <td colspan=2><%= f.submit 'Upload Data' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
