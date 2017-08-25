@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "SignInSignOuts", type: :request do
+RSpec.describe 'SignInSignOuts', type: :request do
   fixtures :admins
   let(:admin) { admins(:eve) }
   
-  describe "GET /admins/sign_in" do
+  describe 'GET /admins/sign_in' do
     it 'renders with new template' do
       get '/admins/sign_in'
       expect(response).to be_success
@@ -14,7 +14,7 @@ RSpec.describe "SignInSignOuts", type: :request do
     end
   end
   
-  describe "POST /admins/sign_in" do
+  describe 'POST /admins/sign_in' do
     context 'with valid credentials' do
       it 'logs in with success message' do
         sign_in_count = admin.sign_in_count
@@ -47,7 +47,7 @@ RSpec.describe "SignInSignOuts", type: :request do
     end
   end
 
-  describe "DELETE /admins/sign_out" do
+  describe 'DELETE /admins/sign_out' do
     it 'logs out with success message' do
       sign_in(admin)
       
