@@ -1,0 +1,10 @@
+one_name:
+  row: donors_one
+  column: donors_name
+  text_val: Joe Moneybags
+  
+one_donation:
+  row: donors_one
+  column: donors_donation
+  text_val: 10500.50
+  

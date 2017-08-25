@@ -4,6 +4,9 @@
       <th>
         Datasheets
       </th>
+      <th>
+        Actions
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -11,6 +14,9 @@
     <tr>
       <td>
         <%= link_to datasheet.name, admin_datasheet_path(datasheet) %>
+      </td>
+      <td>
+        <%= link_to 'Delete', admin_datasheet_path(datasheet), method: :delete, data: { confirm: "Are you sure you wish to delete #{datasheet.name}?" } %>
       </td>
     </tr>
   <% end %>

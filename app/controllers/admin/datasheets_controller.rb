@@ -2,6 +2,7 @@ require 'csv'
 
 class Admin::DatasheetsController < ApplicationController
   before_action :authenticate_admin!
+  before_action :find_datasheet_or_redirect, only: %i[show destroy]
   
   def index
     @datasheets = Datasheet.all
@@ -11,9 +12,7 @@ class Admin::DatasheetsController < ApplicationController
     @datasheet = Datasheet.new
   end
 
-  def show
-    @datasheet = Datasheet.find(params[:id])
-  end
+  def show; end
 
   def create
     @datasheet = Datasheet.new(datasheet_params)
@@ -28,6 +27,14 @@ class Admin::DatasheetsController < ApplicationController
   end
 
   def destroy
+    datasheet_name = @datasheet.name
+    
+    if @datasheet.destroy
+      flash[:notice] = datasheet_name + ' has been deleted.'
+    else
+      flash[:alert] = "Error: #{datasheet_name} could not be deleted."
+    end
+    redirect_back fallback_location: admin_datasheets_path
   end
 
   private
@@ -60,6 +67,15 @@ class Admin::DatasheetsController < ApplicationController
   def create_columns(csv_row)
     csv_row.map.with_index do |column_name| 
       Column.create(name: column_name, datasheet: @datasheet)
+    end
+  end
+  
+  # before filters
+  def find_datasheet_or_redirect
+    if Datasheet.exists?(params[:id])
+      @datasheet = Datasheet.find(params[:id])
+    else
+      redirect_back fallback_location: admin_datasheets_path
     end
   end
 end
