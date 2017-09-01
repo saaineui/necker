@@ -24,5 +24,6 @@
 .byebug_history
 coverage
 spec/examples.txt
+private_notes.txt
 
 .DS_Store
