@@ -8,13 +8,15 @@ class DatasheetsController < ApplicationController
   end
 
   def show
-    @collection = @datasheet.rows.map do |row| 
-      [row.name] + row.cells.map(&:text_val) 
+    columns = @datasheet.columns.map(&:name)
+    first = columns.size >= 4 ? 3 : columns.size - 1
+    last = columns.size >= 5 ? 4 : columns.size - 1
+    
+    @collection = @datasheet.rows.sample(10).map do |row| 
+      [row.cells[columns.index('State').to_i], row.cells[first], row.cells[last]].map(&:text_val) 
     end
 
-    columns = @datasheet.columns.map(&:name)
-    
-    @options = { title: @datasheet.name, columns: columns, contains_label: true }
+    @options = { title: @datasheet.name, columns: columns[first..last], contains_label: true }
   end
 
   private

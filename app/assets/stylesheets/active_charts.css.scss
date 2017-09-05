@@ -6,6 +6,19 @@ $green: #008476;
 $blue: #4542ca;
 $purple: #702277;
 
+.ac-clearfix:before,
+.ac-clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+.ac-clearfix:after {
+    clear: both;
+}
+
+figure.ac-chart-container {
+  margin-bottom: 1em;
+}
+
 figcaption.ac-chart-title {
   text-align: center;
   font-weight: 700;
@@ -18,25 +31,25 @@ svg.ac-chart {
   background: #fff;
   max-width: 100%;
   display: block; 
-  margin: 0 auto;
+  margin: 0 auto 1em auto;
 }
  
-svg.ac-chart.bar-chart {
+svg.ac-chart.ac-bar-chart {
   rect { stroke-width: 1px; stroke: $border; }
   
   rect.grid { fill: #fff; }
   
-  rect.bar { width: 40px; fill: $red; }
+  rect.ac-bar-chart-bar { width: 40px; fill: $red; }
   rect.series-b { fill: $orange; }
   rect.series-c { fill: $yellow; }
   rect.series-d { fill: $green; }
   rect.series-e { fill: $blue; }
   rect.series-f { fill: $purple; }
   
-  text { text-anchor: middle; font-size: 10px; height: 12px; }
+  text { text-anchor: middle; font-size: 14px; height: 12px; }
 }
 
-ul.ac-chart.series-legend {
+ul.ac-chart.ac-series-legend {
   width: 360px;
   margin: 0 auto;
   
