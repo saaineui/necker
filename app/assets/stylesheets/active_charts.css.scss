@@ -1,1 +1,56 @@
-.ac-chart { background: #05f; }
+$border: #dedede;
+$red: #fe4a5d;
+$orange: #ff9016;
+$yellow: #fee123;
+$green: #008476;
+$blue: #4542ca;
+$purple: #702277;
+
+figcaption.ac-chart-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1em; 
+  text-transform: capitalize;
+  margin: 0 auto 0.5em auto;
+}
+
+svg.ac-chart { 
+  background: #fff;
+  max-width: 100%;
+  display: block; 
+  margin: 0 auto;
+}
+ 
+svg.ac-chart.bar-chart {
+  rect { stroke-width: 1px; stroke: $border; }
+  
+  rect.grid { fill: #fff; }
+  
+  rect.bar { width: 40px; fill: $red; }
+  rect.series-b { fill: $orange; }
+  rect.series-c { fill: $yellow; }
+  rect.series-d { fill: $green; }
+  rect.series-e { fill: $blue; }
+  rect.series-f { fill: $purple; }
+  
+  text { text-anchor: middle; font-size: 10px; height: 12px; }
+}
+
+ul.ac-chart.series-legend {
+  width: 360px;
+  margin: 0 auto;
+  
+  li { 
+    list-style: none; 
+    text-align: left; 
+    padding-left: 0.5em;
+    margin-bottom: 0.2em;
+    border-left: 1em solid $red;
+  }
+  li.series-b { border-color: $orange; }
+  li.series-c { border-color: $yellow; }
+  li.series-d { border-color: $green; }
+  li.series-e { border-color: $blue; }
+  li.series-f { border-color: $purple; }
+}
+

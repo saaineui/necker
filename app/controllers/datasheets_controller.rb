@@ -14,7 +14,7 @@ class DatasheetsController < ApplicationController
 
     columns = @datasheet.columns.map(&:name)
     
-    @options = { title: @datasheet.name, columns: columns }
+    @options = { title: @datasheet.name, columns: columns, contains_label: true }
   end
 
   private
