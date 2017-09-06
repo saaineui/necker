@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823221703) do
+ActiveRecord::Schema.define(version: 20170906215658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 20170823221703) do
 
   create_table "cells", force: :cascade do |t|
     t.string "text_val"
-    t.decimal "float_val"
     t.bigint "column_id"
     t.bigint "row_id"
     t.datetime "created_at", null: false
@@ -46,7 +45,6 @@ ActiveRecord::Schema.define(version: 20170823221703) do
   create_table "columns", force: :cascade do |t|
     t.string "name"
     t.bigint "datasheet_id"
-    t.boolean "number"
     t.index ["datasheet_id"], name: "index_columns_on_datasheet_id"
   end
 
@@ -54,6 +52,8 @@ ActiveRecord::Schema.define(version: 20170823221703) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "rows_count"
+    t.integer "columns_count"
   end
 
   create_table "rows", force: :cascade do |t|
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20170823221703) do
     t.bigint "datasheet_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "cells_count"
     t.index ["datasheet_id"], name: "index_rows_on_datasheet_id"
   end
 

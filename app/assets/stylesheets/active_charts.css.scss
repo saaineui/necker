@@ -1,10 +1,24 @@
-$border: #dedede;
-$red: #fe4a5d;
-$orange: #ff9016;
-$yellow: #fee123;
-$green: #008476;
-$blue: #4542ca;
-$purple: #702277;
+$ac-border: #dedede;
+$ac-red: #fe4a5d;
+$ac-orange: #ff9016;
+$ac-yellow: #fee123;
+$ac-green: #008476;
+$ac-blue: #4542ca;
+$ac-purple: #702277;
+
+@mixin smart-box {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+      -ms-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
 
 .ac-clearfix:before,
 .ac-clearfix:after {
@@ -35,36 +49,38 @@ svg.ac-chart {
 }
  
 svg.ac-chart.ac-bar-chart {
-  rect { stroke-width: 1px; stroke: $border; }
+  rect { stroke-width: 1px; stroke: $ac-border; }
   
   rect.grid { fill: #fff; }
   
-  rect.ac-bar-chart-bar { width: 40px; fill: $red; }
-  rect.series-b { fill: $orange; }
-  rect.series-c { fill: $yellow; }
-  rect.series-d { fill: $green; }
-  rect.series-e { fill: $blue; }
-  rect.series-f { fill: $purple; }
+  rect.ac-bar-chart-bar { width: 40px; fill: $ac-red; }
+  rect.ac-bar-chart-bar.series-b { fill: $ac-orange; }
+  rect.ac-bar-chart-bar.series-c { fill: $ac-yellow; }
+  rect.ac-bar-chart-bar.series-d { fill: $ac-green; }
+  rect.ac-bar-chart-bar.series-e { fill: $ac-blue; }
+  rect.ac-bar-chart-bar.series-f { fill: $ac-purple; }
   
   text { text-anchor: middle; font-size: 14px; height: 12px; }
 }
 
 ul.ac-chart.ac-series-legend {
+  @include smart-box;
   width: 360px;
   max-width: 100%;
   margin: 0 auto;
+  padding: 0.25em;
   
   li { 
     list-style: none; 
     text-align: left; 
     padding-left: 0.5em;
     margin-bottom: 0.2em;
-    border-left: 1em solid $red;
+    border-left: 1em solid $ac-red;
   }
-  li.series-b { border-color: $orange; }
-  li.series-c { border-color: $yellow; }
-  li.series-d { border-color: $green; }
-  li.series-e { border-color: $blue; }
-  li.series-f { border-color: $purple; }
+  li.series-b { border-color: $ac-orange; }
+  li.series-c { border-color: $ac-yellow; }
+  li.series-d { border-color: $ac-green; }
+  li.series-e { border-color: $ac-blue; }
+  li.series-f { border-color: $ac-purple; }
 }
 
