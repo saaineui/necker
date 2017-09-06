@@ -1,6 +1,6 @@
   <% @datasheets.each do |datasheet| %>
     <div class="wrap">
-      <a href="<%= datasheet_path(datasheet) %>">
+      <a href="<%= datasheet_path(datasheet, p: 1) %>">
       <div class="home-link">
         <span><%= datasheet.name %></span>
         <%= render partial: 'shared/necker_cube' %>

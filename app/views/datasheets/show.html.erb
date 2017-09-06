@@ -1,1 +1,7 @@
 <%= bar_chart(@collection, @options) %>
+<p class="pagination">
+  <strong>Go to Page: </strong>
+  <% @pages.each do |page| %>
+    <%= link_to_unless current_page?(datasheet_path(@datasheet, p: page)), page, datasheet_path(@datasheet, p: page) %>
+  <% end %>
+</p>
