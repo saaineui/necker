@@ -41,8 +41,13 @@ a .home-link svg.necker-cube line { stroke: $primary; }
 a:hover .home-link svg.necker-cube line { stroke: #000; }
 
 table { text-align: left; margin: 0 auto 1em auto; }
+th { vertical-align: top; }
 th, td { border-bottom: 1px solid #aaa; padding: 0.125em; }
 tr:last-child td { border-bottom: none; }
+
+span.highlight { color: #fff; padding: 0.125em; border-radius: 0.25em; font-size: 0.75em; display: block; margin: 0.125em auto; width: 48px; text-align: center; }
+span.highlight.highlight-a { background: #aaa; }
+span.highlight.highlight-b { background: $primary; }
 
 header svg.necker-cube { width: 80px; }
 

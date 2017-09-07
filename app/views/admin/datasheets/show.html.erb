@@ -5,6 +5,8 @@
       <% @datasheet.columns.order(:id).each do |column| %>
       <th>
         <%= column.name %>
+        <%= tag.span('label', class: 'highlight highlight-a') if @datasheet.label_id.eql?(column.id) %>
+        <%= tag.span('visible', class: 'highlight highlight-b') if column.visible? %>
       </th>
       <% end %>
     </tr>

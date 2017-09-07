@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170906215658) do
+ActiveRecord::Schema.define(version: 20170906230041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20170906215658) do
   create_table "columns", force: :cascade do |t|
     t.string "name"
     t.bigint "datasheet_id"
+    t.boolean "visible"
     t.index ["datasheet_id"], name: "index_columns_on_datasheet_id"
   end
 
@@ -52,8 +53,9 @@ ActiveRecord::Schema.define(version: 20170906215658) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "rows_count"
-    t.integer "columns_count"
+    t.integer "rows_count", default: 0
+    t.integer "columns_count", default: 0
+    t.integer "label_id"
   end
 
   create_table "rows", force: :cascade do |t|
@@ -61,12 +63,13 @@ ActiveRecord::Schema.define(version: 20170906215658) do
     t.bigint "datasheet_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "cells_count"
+    t.integer "cells_count", default: 0
     t.index ["datasheet_id"], name: "index_rows_on_datasheet_id"
   end
 
   add_foreign_key "cells", "columns"
   add_foreign_key "cells", "rows"
   add_foreign_key "columns", "datasheets"
+  add_foreign_key "datasheets", "columns", column: "label_id"
   add_foreign_key "rows", "datasheets"
 end

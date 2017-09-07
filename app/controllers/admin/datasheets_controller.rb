@@ -18,6 +18,7 @@ class Admin::DatasheetsController < ApplicationController
     @datasheet = Datasheet.new(datasheet_params)
     if @datasheet.save
       process_file
+      @datasheet.tag_columns
       flash[:notice] = @datasheet.populated? ? 'Your upload was successful.' : 'Warning: no data was found.'
       redirect_to admin_datasheet_path(@datasheet)
     else
@@ -61,7 +62,7 @@ class Admin::DatasheetsController < ApplicationController
   
   def split_csv
     csv_array = CSV.parse(params[:datasheet][:file].read)
-    [create_columns(csv_array.shift), csv_array]
+    [create_columns(csv_array.first), csv_array[1..csv_array.size - 1]]
   end
   
   def create_columns(csv_row)
@@ -73,7 +74,7 @@ class Admin::DatasheetsController < ApplicationController
   # before filters
   def find_datasheet_or_redirect
     if Datasheet.exists?(params[:id])
-      @datasheet = Datasheet.find(params[:id])
+      @datasheet = Datasheet.includes(:columns, :rows, :cells).find(params[:id])
     else
       redirect_back fallback_location: admin_datasheets_path
     end

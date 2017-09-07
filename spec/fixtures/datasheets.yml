@@ -1,3 +1,6 @@
 donors:
   name: 'Donors'
+  rows_count: 1
+  columns_count: 2
+  label: donors_name
   

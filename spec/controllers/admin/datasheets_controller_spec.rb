@@ -99,7 +99,7 @@ RSpec.describe Admin::DatasheetsController, type: :controller do
 
           expect(response).to redirect_to(admin_datasheet_path(new_datasheet))
           expect(new_datasheet.name).to eq(good_datasheet[:name])
-          expect(new_datasheet.rows.count).to eq(5)
+          expect(new_datasheet.rows_count).to eq(5)
         end
       end
 
