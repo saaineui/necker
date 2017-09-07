@@ -3,38 +3,43 @@ require 'csv'
 class DatasheetsController < ApplicationController
   before_action :find_datasheet_or_redirect, only: %i[show]
   
-  ROWS_PER_PAGE = 6
+  ROWS_PER_PAGE = 13
   
   def index
     @datasheets = Datasheet.all
   end
 
   def show
-    page = params[:p].to_i > 0 ? params[:p].to_i : 1
-    label_col = label_column
+    page = params[:p].to_i.positive? ? params[:p].to_i : 1
     visible_cols = visible_columns
     
-    @collection = @datasheet.rows[rows_range(page)].map do |row| 
-      (row.cells.where(column: label_col) + row.cells.where(column: visible_columns).order(:column_id)).map(&:text_val) 
+    @collection = @datasheet.rows.order(:id).limit(ROWS_PER_PAGE).offset(offset(page)).map do |row| 
+      row.cells.where(column: visible_cols).order(:column_id).pluck(:text_val) 
     end
 
-    @options = { title: @datasheet.name, columns: visible_cols.map(&:name), contains_label: true }
+    @options = { title: @datasheet.name, columns: visible_cols.map(&:name), 
+                 rows: rows(page), data_formatters: formatters }
     
     @pages = (1..(@datasheet.rows_count / ROWS_PER_PAGE + 1)).to_a
   end
 
   private
   
-  def rows_range(page)
-    ((page - 1) * ROWS_PER_PAGE)..(page * ROWS_PER_PAGE - 1)
+  def rows(page)
+    return [] unless @datasheet.label
+    @datasheet.label.cells.order(:row_id).limit(ROWS_PER_PAGE).offset(offset(page)).pluck(:text_val)
   end
   
-  def label_column
-    @datasheet.label || @datasheet.columns.order(:id).first
+  def offset(page)
+    (page - 1) * ROWS_PER_PAGE
   end
   
   def visible_columns
     @datasheet.columns.order(:id).select(&:visible?)
+  end
+  
+  def formatters
+    visible_columns.map { |col| col.name.include?('%') ? :percent : :delimiter }
   end
   
   # before filters

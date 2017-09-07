@@ -1,10 +1,12 @@
     <header>
-      <h1><%= link_to 'Necker', root_path %></h1>
+      <h1><%= link_to_unless current_page?(root_path), 'Necker', root_path %></h1>
       <p><%= render partial: 'shared/necker_cube' %></p>
-      <% if admin_signed_in? %>
       <p>
-        <%= link_to 'All Datasheets', admin_datasheets_path %> / 
-        <%= link_to 'Upload CSV', new_admin_datasheet_path %>
+        <%= link_to_unless current_page?(root_path), 'Featured Charts', root_path %>
+         / <%= link_to_unless current_page?(datasheets_path), 'Auto-Generated Charts', datasheets_path %>
+        <% if admin_signed_in? %>
+           / <%= link_to_unless current_page?(admin_datasheets_path), 'All Datasheets', admin_datasheets_path %>
+           / <%= link_to_unless current_page?(new_admin_datasheet_path), 'Upload CSV', new_admin_datasheet_path %>
+        <% end %>
       </p>
-      <% end %>
     </header>

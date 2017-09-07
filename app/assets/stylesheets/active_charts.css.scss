@@ -53,7 +53,7 @@ svg.ac-chart.ac-bar-chart {
   
   rect.grid { fill: #fff; }
   
-  rect.ac-bar-chart-bar { width: 40px; fill: $ac-red; }
+  rect.ac-bar-chart-bar.series-a { fill: $ac-red; }
   rect.ac-bar-chart-bar.series-b { fill: $ac-orange; }
   rect.ac-bar-chart-bar.series-c { fill: $ac-yellow; }
   rect.ac-bar-chart-bar.series-d { fill: $ac-green; }

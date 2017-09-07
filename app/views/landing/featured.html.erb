@@ -1,0 +1,11 @@
+<h2>Featured Charts:</h2>
+  <% @charts.each do |title, path| %>
+    <div class="wrap">
+      <a href="<%= path %>">
+      <div class="home-link">
+        <span><%= title %></span>
+        <%= render partial: 'shared/necker_cube' %>
+      </div>
+      </a>
+    </div>
+  <% end %>

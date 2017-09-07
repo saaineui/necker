@@ -1,0 +1,8 @@
+<h2><%= @options[:title] %></h2>
+<div style="text-align: left; max-width: 700px; margin: 0 auto;">
+  <p>Although differences in voter participation rates between states are not large when compared to rates in other countries, this chart clearly indicates that investments in voter engagement initiatives and believing that &ldquo;your vote counts&rdquo; makes a difference, with swing states* having higher participation rates than non-swing states.</p>
+  <p>However, a breakdown of the non-swing states into party lean also indicates that voter suppression (seen primarily in red states) and voter-engagement initiatives like auto-enrollment (seen primarily in blue states) also have a combined 3.4% effect on voter participation.</p>
+  <p>Therefore, moving to a popular vote model for national elections in combination with voter engagement initiative and combating voter suppression will increase voter participation.</p>
+  <p><sub>* Swing state: state with a margin for the 2016 general election winner of less than or equal to <%= number_to_percentage(@cutoff * 100, precision: 0) %>.</sub></p>
+</div>
+<%= bar_chart(@collection, @options) %>
