@@ -1,8 +1,9 @@
 class Word < ApplicationRecord
   validates :name, :word, :match_exp, :start_date, :snapshots, 
-            :new_york_times, :wall_street_journal, :washington_post, presence: true
+            :new_york_times, :wall_street_journal, :washington_post, 
+            :nyt_snapshots, :wsj_snapshots, :wapo_snapshots, presence: true
   
-  before_validation :name_record, :match_exp_from_word, :add_counts, unless: :persisted?
+  before_validation :name_record, :match_exp_from_word, unless: :persisted?
   
   MEDIA = { 
     new_york_times: 'nytimes.com', 
@@ -22,15 +23,6 @@ class Word < ApplicationRecord
     return false unless word && match_exp.nil?
     
     self.match_exp = word.gsub(/(-| )/) { |match| '\s*(-|\+)?\s*' }
-  end
-  
-  def add_counts
-    return false unless name
-    
-    MEDIA.each do |column, _|
-      column = (column.to_s + '=').to_sym
-      self.send(column, 0)
-    end
   end
   
   def pretty_time_period

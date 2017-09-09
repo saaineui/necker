@@ -17,6 +17,9 @@ RSpec.describe Word, type: :model do
   it { is_expected.to validate_presence_of(:new_york_times) }
   it { is_expected.to validate_presence_of(:wall_street_journal) }
   it { is_expected.to validate_presence_of(:washington_post) }
+  it { is_expected.to validate_presence_of(:nyt_snapshots) }
+  it { is_expected.to validate_presence_of(:wsj_snapshots) }
+  it { is_expected.to validate_presence_of(:wapo_snapshots) }
   
   it '#pretty_time_period returns humanized time period for start_date and snapshots' do
     expect(day.send(:pretty_time_period)).to eq('2017-01-01')
@@ -53,20 +56,11 @@ RSpec.describe Word, type: :model do
     end
   end
   
-  it '#add_counts' do
-    happy_joy.send(:add_counts)
-
-    Word::MEDIA.each do |column, _|
-        expect(happy_joy.send(column)).to eq(0)
-    end
-  end
-  
   it 'factory methods do not run on update' do
     happy_joy.save
     happy_joy.update(name: 'updated', match_exp: 'updated', new_york_times: 3)
     
     expect(happy_joy.name).to eq('updated')
     expect(happy_joy.match_exp).to eq('updated')
-    expect(happy_joy.new_york_times).to eq(3)
   end
 end

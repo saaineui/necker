@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170908213931) do
+ActiveRecord::Schema.define(version: 20170909092645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,12 +73,14 @@ ActiveRecord::Schema.define(version: 20170908213931) do
     t.string "match_exp"
     t.datetime "start_date"
     t.integer "snapshots"
-    t.integer "new_york_times"
-    t.integer "wall_street_journal"
-    t.integer "cnn"
-    t.integer "washington_post"
+    t.integer "new_york_times", default: 0
+    t.integer "wall_street_journal", default: 0
+    t.integer "washington_post", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "nyt_snapshots", default: 0
+    t.integer "wsj_snapshots", default: 0
+    t.integer "wapo_snapshots", default: 0
   end
 
   add_foreign_key "cells", "columns"
