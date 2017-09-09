@@ -2,12 +2,18 @@ class Word < ApplicationRecord
   validates :name, :word, :match_exp, :start_date, :snapshots, 
            :new_york_times, :wall_street_journal, :cnn, :washington_post, presence: true
   
-  before_validation :name_record, unless: :persisted?
+  before_validation :name_record, :match_exp_from_word, unless: :persisted?
   
   def name_record
     return false unless pretty_time_period
     
     self.name = "#{word} (#{pretty_time_period})"
+  end
+  
+  def match_exp_from_word
+    return false unless word && match_exp.nil?
+    
+    self.match_exp = word.gsub(/(-| )/, '\s*-?\s*')
   end
   
   def pretty_time_period

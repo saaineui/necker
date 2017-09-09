@@ -1,9 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Word, type: :model do
+  let(:date) { Date.new(2017, 1, 1) }
+  
   { day: 1, generic: 3, month: 31, quarter: 90, year: 365 }.each do |type, days|
-    let(type) { Word.new(word: type, start_date: Date.new(2017, 1, 1), snapshots: days) }
+    let(type) { Word.new(word: type, start_date: date, snapshots: days) }
   end
+  
+  let(:happy_joy) { Word.new(word: 'happy-joy') }
   
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:word) }
@@ -28,5 +32,25 @@ RSpec.describe Word, type: :model do
   
     generic.name_record
     expect(generic.name).to eq('generic (2017-01-01 - 2017-01-03)')
+  end
+  
+  describe '#match_exp_from_word' do
+    context 'when :match_exp is nil' do
+      it 'sets :match_exp to smart regexp-ready string' do
+        happy_joy.match_exp_from_word
+        
+        expect(happy_joy.match_exp).to eq('happy\s*-?\s*joy')
+      end
+    end
+    
+    context 'when :match_exp is not nil' do
+      it 'returns false without action' do
+        happy_joy.match_exp = 'custom'
+        expect(happy_joy.match_exp).to eq('custom')
+        
+        happy_joy.match_exp_from_word
+        expect(happy_joy.match_exp).to eq('custom')
+      end
+    end
   end
 end
