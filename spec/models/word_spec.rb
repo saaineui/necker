@@ -21,6 +21,11 @@ RSpec.describe Word, type: :model do
   it { is_expected.to validate_presence_of(:wsj_snapshots) }
   it { is_expected.to validate_presence_of(:wapo_snapshots) }
   
+  it '#complete? returns true if all site snapshots columns equal snapshots target' do
+    expect(day.complete?).to be(false)
+    expect(happy_joy.complete?).to be(true)
+  end
+  
   it '#pretty_time_period returns humanized time period for start_date and snapshots' do
     expect(day.send(:pretty_time_period)).to eq('2017-01-01')
     expect(generic.send(:pretty_time_period)).to eq('2017-01-01 - 2017-01-03')

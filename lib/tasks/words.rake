@@ -1,32 +1,61 @@
 namespace :words do
-  desc 'Scrape date(s) specified for word frequency on four sites'
-  task :scrape, [:when] => :environment do |_, args|
-    begin
-      ['alt-right', 'anti-establishment'].each do |word|
-        new_word = Word.create(word: word, start_date: Date.new(*args.when.split('-').map(&:to_i)), snapshots: 1)
-        puts new_word.name + ' created.'
+  desc 'Scrape date(s) specified for word frequency on news sites'
+  task :scrape, [:start_date, :snapshots] => :environment do |_, args|
+    start_date = Date.new(*args.start_date.split('-').map(&:to_i))
+    end_date = start_date + (args.snapshots.to_i - 1).days
+    USER_AGENT = 'https://github.com/saaineui/necker'
+    
+    terms = ['alt-right', 'identity politics'].map do |word|
+      new_word = Word.create(word: word, start_date: start_date, snapshots: args.snapshots.to_i)
+      puts new_word.name + ' created.'
+      { w: new_word, re: Regexp.new('\b' + new_word.match_exp + '\b', true) }
+    end
+    
+    until terms.last[:w].complete?
+      begin
+        (start_date..end_date).each_with_index do |date, index|
+          Word::MEDIA.each do |column, d|
+            # raise error if term snapshots do not match?
+            
+            if date <= (start_date + (terms.first[:w].send(d[:snapshots]) - 1).days)
+              puts "#{column} on #{date.strftime('%F')} skipped"
+              next
+            end
+            
+            currently_fetching = "https://web.archive.org/web/#{date.strftime('%Y%m%d')}170000/https://www.#{d[:site]}"
+            
+            puts 'Currently fetching ' + currently_fetching
+            
+            res = HTTPClient.new(
+              default_header: { "User-Agent" => USER_AGENT }
+            ).get(
+              currently_fetching, 
+              follow_redirect: true
+            )
 
-        match_exp = Regexp.new('\b' + new_word.match_exp + '\b', true)
-        
-        Word::MEDIA.each do |column, site|
-          sleep(1)
-          res = HTTPClient.new.get(
-            "https://web.archive.org/web/#{args.when.gsub('-','')}170000/#{site}", 
-            follow_redirect: true
-          )
+            raise HTTPClient::BadResponseError if res.body.nil? || !res.code.eql?(200)
+            homepage = Nokogiri::HTML(res.body)
+            homepage = homepage.xpath('//body').first.inner_text.to_s.gsub(/\s+/, ' ')
 
-          raise HTTPClient::TimeoutError if res.body.nil? || !res.code.eql?(200)
-          homepage = Nokogiri::HTML(res.body)
-          homepage = homepage.xpath('//body').first.inner_text.to_s.gsub(/\s+/, ' ')
-          new_count = new_word.send(column) + homepage.scan(match_exp).count
-          puts new_count
+            terms.each do |term|
+              current_term_count = homepage.scan(term[:re]).count
+              puts "#{term[:w].word} found #{current_term_count} times in #{column} on #{date.strftime('%F')}"
+              
+              new_term_count = term[:w].send(column) + current_term_count
+              new_snapshots = term[:w].send(d[:snapshots]) + 1
+              term[:w].update(column => new_term_count, d[:snapshots] => new_snapshots)
+              
+              puts "#{term[:w].word} updated: #{column} #{new_term_count}, #{d[:snapshots]} #{new_snapshots}"
+            end
 
-          new_word.update(column => new_count)
+            sleep(1)
+          end
         end
+      rescue => e
+        puts e.message
       end
-    rescue HTTPClient::TimeoutError 
-      res_code = res && res.respond_to?(:code) ? res.code : 'no code'
-      puts 'Timeout Error or Empty Body: ' + res.code.to_s
+      
+      sleep(60) unless terms.last[:w].complete?
     end
   end
 end

@@ -2,7 +2,7 @@ class LandingController < ApplicationController
   def featured
     @charts = { 
       'Voter Participation by State Type' => voter_participation_path,
-      'Terms of Interest in Major Media' => words_path 
+      'Terms of Interest on News Hompages' => words_path 
     }
   end
 

@@ -6,12 +6,20 @@ class Word < ApplicationRecord
   before_validation :name_record, :match_exp_from_word, unless: :persisted?
   
   MEDIA = { 
-    new_york_times: 'nytimes.com', 
-    wall_street_journal: 'wsj.com', 
-    washington_post: 'washingtonpost.com'
+    new_york_times: { site: 'nytimes.com', snapshots: :nyt_snapshots },
+    wall_street_journal: { site: 'wsj.com', snapshots: :wsj_snapshots },
+    washington_post: { site: 'washingtonpost.com', snapshots: :wapo_snapshots }
   }.freeze
   
+  def complete?
+    site_snapshots_columns.all? { |column| snapshots.eql?(column) }
+  end
+  
   private
+    
+  def site_snapshots_columns
+    MEDIA.values.map { |d| self.send(d[:snapshots]) }
+  end
   
   def name_record
     return false unless pretty_time_period
@@ -22,7 +30,7 @@ class Word < ApplicationRecord
   def match_exp_from_word
     return false unless word && match_exp.nil?
     
-    self.match_exp = word.gsub(/(-| )/) { |match| '\s*(-|\+)?\s*' }
+    self.match_exp = word.gsub(/(-| )/) { '\s*(-|\+)?\s*' }
   end
   
   def pretty_time_period
