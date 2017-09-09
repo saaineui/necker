@@ -1,8 +1,10 @@
 class Word < ApplicationRecord
   validates :name, :word, :match_exp, :start_date, :snapshots, 
-           :new_york_times, :wall_street_journal, :cnn, :washington_post, presence: true
+            :new_york_times, :wall_street_journal, :cnn, :washington_post, presence: true
   
-  before_validation :name_record, :match_exp_from_word, unless: :persisted?
+  before_validation :name_record, :match_exp_from_word, :add_counts, unless: :persisted?
+  
+  private
   
   def name_record
     return false unless pretty_time_period
@@ -14,6 +16,14 @@ class Word < ApplicationRecord
     return false unless word && match_exp.nil?
     
     self.match_exp = word.gsub(/(-| )/, '\s*-?\s*')
+  end
+  
+  def add_counts
+    return false unless name
+    
+    [:new_york_times=, :wall_street_journal=, :cnn=, :washington_post=].each do |count_column|
+      self.send(count_column, 0)
+    end
   end
   
   def pretty_time_period
