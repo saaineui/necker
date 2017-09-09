@@ -1,6 +1,6 @@
 class WordsController < ApplicationController
   def index
-    columns = %i[new_york_times wall_street_journal cnn washington_post]
+    columns = %i[new_york_times wall_street_journal washington_post]
     
     @alt_right = {
       collection: Word.where(word: 'alt-right'), 

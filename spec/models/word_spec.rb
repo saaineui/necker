@@ -16,7 +16,6 @@ RSpec.describe Word, type: :model do
   it { is_expected.to validate_presence_of(:snapshots) }
   it { is_expected.to validate_presence_of(:new_york_times) }
   it { is_expected.to validate_presence_of(:wall_street_journal) }
-  it { is_expected.to validate_presence_of(:cnn) }
   it { is_expected.to validate_presence_of(:washington_post) }
   
   it '#pretty_time_period returns humanized time period for start_date and snapshots' do
@@ -39,7 +38,7 @@ RSpec.describe Word, type: :model do
       it 'sets :match_exp to smart regexp-ready string' do
         happy_joy.send(:match_exp_from_word)
         
-        expect(happy_joy.match_exp).to eq('happy\s*-?\s*joy')
+        expect(happy_joy.match_exp).to eq('happy\s*(-|\+)?\s*joy')
       end
     end
     
@@ -57,7 +56,7 @@ RSpec.describe Word, type: :model do
   it '#add_counts' do
     happy_joy.send(:add_counts)
 
-    [:new_york_times, :wall_street_journal, :cnn, :washington_post].each do |column|
+    Word::MEDIA.each do |column, _|
         expect(happy_joy.send(column)).to eq(0)
     end
   end

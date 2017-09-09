@@ -1,8 +1,14 @@
 class Word < ApplicationRecord
   validates :name, :word, :match_exp, :start_date, :snapshots, 
-            :new_york_times, :wall_street_journal, :cnn, :washington_post, presence: true
+            :new_york_times, :wall_street_journal, :washington_post, presence: true
   
   before_validation :name_record, :match_exp_from_word, :add_counts, unless: :persisted?
+  
+  MEDIA = { 
+    new_york_times: 'nytimes.com', 
+    wall_street_journal: 'wsj.com', 
+    washington_post: 'washingtonpost.com'
+  }.freeze
   
   private
   
@@ -15,14 +21,15 @@ class Word < ApplicationRecord
   def match_exp_from_word
     return false unless word && match_exp.nil?
     
-    self.match_exp = word.gsub(/(-| )/, '\s*-?\s*')
+    self.match_exp = word.gsub(/(-| )/) { |match| '\s*(-|\+)?\s*' }
   end
   
   def add_counts
     return false unless name
     
-    [:new_york_times=, :wall_street_journal=, :cnn=, :washington_post=].each do |count_column|
-      self.send(count_column, 0)
+    MEDIA.each do |column, _|
+      column = (column.to_s + '=').to_sym
+      self.send(column, 0)
     end
   end
   
