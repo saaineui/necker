@@ -3,7 +3,8 @@ class WordsController < ApplicationController
     columns = %i[new_york_times wall_street_journal washington_post]
     options = {
       bar_width: 55,
-      single_y_scale: true
+      single_y_scale: true,
+      max_values: Array.new(3, Word.all.pluck(*columns).flatten.max)
     }
     
     ranges = {
