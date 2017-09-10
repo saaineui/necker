@@ -15,6 +15,12 @@ class Word < ApplicationRecord
     site_snapshots_columns.all? { |column| snapshots.eql?(column) }
   end
   
+  def reg_exp
+    return false unless match_exp.is_a?(String)
+    
+    Regexp.new('\b' + match_exp + '\b', true)
+  end
+  
   private
     
   def site_snapshots_columns

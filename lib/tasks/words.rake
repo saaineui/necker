@@ -8,16 +8,16 @@ namespace :words do
     terms = ['alt-right', 'identity politics'].map do |word|
       new_word = Word.create(word: word, start_date: start_date, snapshots: args.snapshots.to_i)
       puts new_word.name + ' created.'
-      { w: new_word, re: Regexp.new('\b' + new_word.match_exp + '\b', true) }
+      new_word
     end
     
-    until terms.last[:w].complete?
+    until terms.last.complete?
       begin
         (start_date..end_date).each_with_index do |date, index|
           Word::MEDIA.each do |column, d|
             # raise error if term snapshots do not match?
             
-            if date <= (start_date + (terms.first[:w].send(d[:snapshots]) - 1).days)
+            if date <= (start_date + (terms.first.send(d[:snapshots]) - 1).days)
               puts "#{column} on #{date.strftime('%F')} skipped"
               next
             end
@@ -38,14 +38,14 @@ namespace :words do
             homepage = homepage.xpath('//body').first.inner_text.to_s.gsub(/\s+/, ' ')
 
             terms.each do |term|
-              current_term_count = homepage.scan(term[:re]).count
-              puts "#{term[:w].word} found #{current_term_count} times in #{column} on #{date.strftime('%F')}"
+              current_term_count = homepage.scan(term.reg_exp).count
+              puts "#{term.word} found #{current_term_count} times in #{column} on #{date.strftime('%F')}"
               
-              new_term_count = term[:w].send(column) + current_term_count
-              new_snapshots = term[:w].send(d[:snapshots]) + 1
-              term[:w].update(column => new_term_count, d[:snapshots] => new_snapshots)
+              new_term_count = term.send(column) + current_term_count
+              new_snapshots = term.send(d[:snapshots]) + 1
+              term.update(column => new_term_count, d[:snapshots] => new_snapshots)
               
-              puts "#{term[:w].word} updated: #{column} #{new_term_count}, #{d[:snapshots]} #{new_snapshots}"
+              puts "#{term.word} updated: #{column} #{new_term_count}, #{d[:snapshots]} #{new_snapshots}"
             end
 
             sleep(1)
@@ -55,7 +55,7 @@ namespace :words do
         puts e.message
       end
       
-      sleep(60) unless terms.last[:w].complete?
+      sleep(60) unless terms.last.complete?
     end
   end
 end

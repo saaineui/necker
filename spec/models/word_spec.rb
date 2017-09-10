@@ -8,6 +8,8 @@ RSpec.describe Word, type: :model do
   end
   
   let(:happy_joy) { Word.new(name: 'happy-joy (2017-01-01)', word: 'happy-joy', start_date: date, snapshots: 0) }
+  let(:alt_right) { Word.create(word: 'alt-right', start_date: date, snapshots: 1) }
+  let(:identity) { Word.create(word: 'identity politics', start_date: date, snapshots: 1) }
   
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:word) }
@@ -24,6 +26,15 @@ RSpec.describe Word, type: :model do
   it '#complete? returns true if all site snapshots columns equal snapshots target' do
     expect(day.complete?).to be(false)
     expect(happy_joy.complete?).to be(true)
+  end
+  
+  it '#reg_exp returns matches all desired permutations of :word' do
+    homepage = file_fixture('archived_nyt.html').read 
+    homepage = Nokogiri::HTML(homepage)
+    homepage = homepage.xpath('//body').first.inner_text.to_s.gsub(/\s+/, ' ') # pull this out into a unit test
+    
+    expect(homepage.scan(alt_right.reg_exp).count).to eq(3)
+    expect(homepage.scan(identity.reg_exp).count).to eq(2)
   end
   
   it '#pretty_time_period returns humanized time period for start_date and snapshots' do
