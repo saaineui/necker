@@ -4,5 +4,11 @@
   <p>Here are two phrases, one with a longer history than the other, which saw a sudden spike in usage in late 2016 and 2017.</p>
   <p>This data was obtained by scraping the archived homepages of the sites indicated on the Internet Archive Wayback Machine.</p>
 </div>
-<%= bar_chart_for(*@alt_right.values) %>
-<%= bar_chart_for(*@identity.values) %>
+<h3>alt-right</h3>
+<%= bar_chart_for(*@alt_right['2016'].values) %>
+<%= bar_chart_for(*@alt_right['2017'].values) %>
+
+<h3>identity politics</h3>
+<%= bar_chart_for(*@identity['2016'].values) %>
+<%= bar_chart_for(*@alt_right['2017'].values) %>
+
