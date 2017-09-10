@@ -18,9 +18,10 @@ class DatasheetsController < ApplicationController
     end
 
     @options = { title: @datasheet.name, columns: visible_cols.map(&:name), 
-                 rows: rows(page), data_formatters: formatters }
+                 rows: rows(page), max_values: max_values(visible_cols), data_formatters: formatters }
     
     @pages = (1..(@datasheet.rows_count / ROWS_PER_PAGE + 1)).to_a
+    
   end
 
   private
@@ -28,6 +29,12 @@ class DatasheetsController < ApplicationController
   def rows(page)
     return [] unless @datasheet.label
     @datasheet.label.cells.order(:row_id).limit(ROWS_PER_PAGE).offset(offset(page)).pluck(:text_val)
+  end
+  
+  def max_values(visible_cols)
+    visible_cols.map do |column|
+      column.cells.pluck(:text_val).map(&:to_d).max
+    end
   end
   
   def offset(page)

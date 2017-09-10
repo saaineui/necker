@@ -1,18 +1,21 @@
 class WordsController < ApplicationController
   def index
     columns = %i[new_york_times wall_street_journal washington_post]
-    bar_width = 80
-    
+    options = {
+      bar_width: 80,
+      single_y_scale: true
+    }
+
     @alt_right = {
-      collection: Word.where(word: 'alt-right'), 
+      collection: Word.where(word: 'alt-right').order(:start_date), 
       columns: columns,
-      options: { title: '"alt-right" on News Homepages', bar_width: bar_width }
+      options: options.merge(title: '"alt-right" on News Homepages')
     }
     
     @identity = {
-      collection: Word.where(word: 'identity politics'), 
+      collection: Word.where(word: 'identity politics').order(:start_date), 
       columns: columns,
-      options: { title: '"identity politics" on News Homepages', bar_width: bar_width }
+      options: options.merge(title: '"identity politics" on News Homepages')
     }
   end
 end
