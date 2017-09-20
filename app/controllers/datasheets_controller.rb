@@ -21,7 +21,6 @@ class DatasheetsController < ApplicationController
                  rows: rows(page), max_values: max_values(visible_cols), data_formatters: formatters }
     
     @pages = (1..(@datasheet.rows_count / ROWS_PER_PAGE + 1)).to_a
-    
   end
 
   private

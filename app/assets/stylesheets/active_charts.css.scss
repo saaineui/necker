@@ -1,10 +1,39 @@
-$ac-border: #dedede;
+$ac-light-gray: #dedede;
 $ac-red: #fe4a5d;
 $ac-orange: #ff9016;
 $ac-yellow: #fee123;
 $ac-green: #008476;
 $ac-blue: #4542ca;
 $ac-purple: #702277;
+$ac-pink: #ffb3cb; 
+$ac-lime: #a5e100; 
+$ac-teal: #00a0cc; 
+$ac-lavendar: #c19bff; 
+$ac-gold: #d39f10; 
+$ac-brown: #7d4a32; 
+$ac-gray: #aaa; 
+$ac-black: #000; 
+$ac-olive: #a09f29; 
+
+$ac-border: $ac-light-gray;
+
+$ac-series: (
+  series-a: $ac-red,
+  series-b: $ac-orange,
+  series-c: $ac-yellow,
+  series-d: $ac-green,
+  series-e: $ac-blue,
+  series-f: $ac-purple,
+  series-g: $ac-pink, 
+  series-h: $ac-lime, 
+  series-i: $ac-teal, 
+  series-j: $ac-lavendar, 
+  series-k: $ac-gold, 
+  series-l: $ac-brown, 
+  series-m: $ac-gray, 
+  series-n: $ac-black, 
+  series-o: $ac-olive, 
+);
 
 @mixin smart-box {
   -webkit-box-sizing: border-box;
@@ -19,6 +48,23 @@ $ac-purple: #702277;
       -ms-border-radius: $radius;
           border-radius: $radius;
 }
+
+@mixin slow-transitions {
+  -webkit-transition-property: opacity background color fill stroke; 
+  -webkit-transition-duration: 0.20s; 
+  -webkit-transition-timing-function: ease-out; 
+     -moz-transition-property: opacity background color fill stroke; 
+     -moz-transition-duration: 0.20s; 
+     -moz-transition-timing-function: ease-out; 
+      -ms-transition-property: opacity background color fill stroke; 
+      -ms-transition-duration: 0.20s; 
+      -ms-transition-timing-function: ease-out; 
+          transition-property: opacity background color fill stroke; 
+          transition-duration: 0.20s; 
+          transition-timing-function: ease-out; 
+}
+
+text, circle { @include slow-transitions; }
 
 .ac-clearfix:before,
 .ac-clearfix:after {
@@ -46,25 +92,22 @@ svg.ac-chart {
   max-width: 100%;
   display: block; 
   margin: 0 auto 1em auto;
-}
- 
-svg.ac-chart.ac-bar-chart {
+  
   rect { stroke-width: 1px; stroke: $ac-border; }
-  
   rect.grid { fill: #fff; }
-  
-  rect.ac-bar-chart-bar.series-a { fill: $ac-red; }
-  rect.ac-bar-chart-bar.series-b { fill: $ac-orange; }
-  rect.ac-bar-chart-bar.series-c { fill: $ac-yellow; }
-  rect.ac-bar-chart-bar.series-d { fill: $ac-green; }
-  rect.ac-bar-chart-bar.series-e { fill: $ac-blue; }
-  rect.ac-bar-chart-bar.series-f { fill: $ac-purple; }
-  
   text { text-anchor: middle; font-size: 14px; height: 12px; }
+  text.anchor_start { text-anchor: start; }
+}
+
+svg.ac-chart.ac-scatter-plot {
+  circle.ac-scatter-plot-dot { r: 3px; stroke-width: 3px; fill: transparent; cursor: pointer; z: 1; }
+  text.ac-scatter-plot-label { text-anchor: start; opacity: 0; cursor: pointer; z: 2; }
+  text.ac-scatter-plot-label:hover { opacity: 0.2; }
 }
 
 ul.ac-chart.ac-series-legend {
   @include smart-box;
+  
   width: 360px;
   max-width: 100%;
   margin: 0 auto;
@@ -75,12 +118,16 @@ ul.ac-chart.ac-series-legend {
     text-align: left; 
     padding-left: 0.5em;
     margin-bottom: 0.2em;
-    border-left: 1em solid $ac-red;
+    border-left-width: 1em; 
+    border-left-style: solid;
   }
-  li.series-b { border-color: $ac-orange; }
-  li.series-c { border-color: $ac-yellow; }
-  li.series-d { border-color: $ac-green; }
-  li.series-e { border-color: $ac-blue; }
-  li.series-f { border-color: $ac-purple; }
 }
 
+@each $name, $color in $ac-series {
+  rect.ac-bar-chart-bar.#{$name} { fill: $color; }
+  circle.ac-scatter-plot-dot.#{$name} { stroke: $color; }
+  li.#{$name} { border-color: $color; }
+}
+
+.ac-highlight { stroke: $ac-black !important; z: 1 !important; }
+.ac-visible { opacity: 1 !important; z: 2 !important; }

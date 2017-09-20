@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :admins
   
   get '/voter_participation', to: 'landing#voter_participation', as: 'voter_participation'
+  get '/scatter', to: 'landing#scatter', as: 'scatter'
   
   resources :datasheets, only: %i[index show]
   resources :words, only: %i[index]

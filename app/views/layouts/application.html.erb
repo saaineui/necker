@@ -7,7 +7,6 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
     <%= favicon_link_tag 'favicon.png' %>
     <%= favicon_link_tag 'favicon.png', rel: 'apple-touch-icon', type: 'image/png' %>
   </head>
@@ -22,5 +21,6 @@
       <%= yield %>
     </div>
     <%= render partial: 'layouts/footer' %>
+    <%= javascript_include_tag 'application' %>
   </body>
 </html>

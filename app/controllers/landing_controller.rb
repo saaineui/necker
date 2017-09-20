@@ -5,16 +5,39 @@ class LandingController < ApplicationController
       'Terms of Interest on News Hompages' => words_path 
     }
   end
+  
+  def scatter
+    datasheet = Datasheet.find_by(name: 'Per Capita Carbon Emissions and Racial Diversity by State')
+    margin_column = datasheet.columns.find_by(name: 'Clinton-Kaine Margin (% Total State Votes) (2016 General Election)')
+    income_column = datasheet.columns.find_by(name: 'Median Income (2015)')
+    
+    @collection = datasheet.rows.order(:id).map do |row| 
+      [
+        [
+          row.cells.where(column: margin_column).first.text_val.to_d,
+          row.cells.where(column: income_column).first.text_val.to_d
+        ]
+      ]
+    end
+    
+    @options = { 
+      title: 'Clinton-Kaine Margin (%) vs. Median Income ($ per year)', 
+      columns: ['50 U.S. States and District of Columbia'],
+      rows: datasheet.label.cells.order(:row_id).pluck(:text_val),
+      height: 600,
+      width: 900
+    }
+  end
 
   def voter_participation
-    @datasheet = Datasheet.find_by(name: 'Per Capita Carbon Emissions and Racial Diversity by State')
+    datasheet = Datasheet.find_by(name: 'Per Capita Carbon Emissions and Racial Diversity by State')
     @cutoff = 0.03
     
-    margin_column = @datasheet.columns.find_by(name: 'Clinton-Kaine Margin (% Total State Votes) (2016 General Election)')
-    vep_column = @datasheet.columns.find_by(name: 'Voting-Eligible Population (VEP) (2016 General Election)')
-    voted_column = @datasheet.columns.find_by(name: 'Total Voted (2016 General Election)')
+    margin_column = datasheet.columns.find_by(name: 'Clinton-Kaine Margin (% Total State Votes) (2016 General Election)')
+    vep_column = datasheet.columns.find_by(name: 'Voting-Eligible Population (VEP) (2016 General Election)')
+    voted_column = datasheet.columns.find_by(name: 'Total Voted (2016 General Election)')
     
-    swing_states, other_states = @datasheet.rows.partition do |row| 
+    swing_states, other_states = datasheet.rows.partition do |row| 
       row.cells.where(column: margin_column).first.text_val.to_d.abs <= @cutoff
     end
     
