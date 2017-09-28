@@ -2,31 +2,64 @@ class LandingController < ApplicationController
   def featured
     @charts = { 
       'Voter Participation by State Type' => voter_participation_path,
-      'Terms of Interest on News Hompages' => words_path 
+      'Terms of Interest on News Hompages' => words_path,
+      'State Data Scatter' => states_xy_path,
+      'Book Ratings Scatter' => books_xy_path
     }
   end
   
-  def scatter
-    datasheet = Datasheet.find_by(name: 'Per Capita Carbon Emissions and Racial Diversity by State')
+  def states_xy
+    datasheet = Datasheet.includes(:rows, :columns, :cells).find_by(name: 'Per Capita Carbon Emissions and Racial Diversity by State')
     margin_column = datasheet.columns.find_by(name: 'Clinton-Kaine Margin (% Total State Votes) (2016 General Election)')
     income_column = datasheet.columns.find_by(name: 'Median Income (2015)')
     
     @collection = datasheet.rows.order(:id).map do |row| 
-      [
         [
-          row.cells.where(column: margin_column).first.text_val.to_d,
-          row.cells.where(column: income_column).first.text_val.to_d
+          [
+            row.cells.where(column: margin_column).first.text_val.to_d,
+            row.cells.where(column: income_column).first.text_val.to_d
+          ]
         ]
-      ]
     end
     
     @options = { 
-      title: 'Clinton-Kaine Margin (%) vs. Median Income ($ per year)', 
-      columns: ['50 U.S. States and District of Columbia'],
-      rows: datasheet.label.cells.order(:row_id).pluck(:text_val),
-      height: 600,
-      width: 900
+        title: 'Clinton-Kaine Margin (%) vs. Median Income ($ per year)', 
+        columns: ['50 U.S. States and District of Columbia'],
+        rows: datasheet.label.cells.order(:row_id).pluck(:text_val),
+        height: 600,
+        width: 900
     }
+  rescue
+    nil
+  ensure
+    render_scatter
+  end
+    
+  def books_xy
+    datasheet = Datasheet.includes(:rows, :columns, :cells).find_by(name: 'Book Ratings: Me vs. Goodreads Average')
+    my_ratings = datasheet.columns.find_by(name: 'My Rating')
+    avg_ratings = datasheet.columns.find_by(name: 'Average Rating')
+    
+    @collection = datasheet.rows.order(:id).map do |row| 
+        [
+          [
+            row.cells.where(column: my_ratings).first.text_val.to_d,
+            row.cells.where(column: avg_ratings).first.text_val.to_d
+          ]
+        ]
+    end
+    
+    @options = { 
+        title: datasheet.name, 
+        columns: ['Book Title'],
+        rows: datasheet.label.cells.order(:row_id).pluck(:text_val),
+        height: 600,
+        width: 900
+    }
+  rescue
+    nil
+  ensure
+    render_scatter
   end
 
   def voter_participation
@@ -61,5 +94,11 @@ class LandingController < ApplicationController
     end
   rescue
     nil
+  end
+  
+  private
+  
+  def render_scatter
+    render 'scatter'
   end
 end

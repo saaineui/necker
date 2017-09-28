@@ -93,7 +93,7 @@ svg.ac-chart {
   display: block; 
   margin: 0 auto 1em auto;
   
-  rect { stroke-width: 1px; stroke: $ac-border; }
+  line.ac-grid-line, rect { stroke-width: 1px; stroke: $ac-border; }
   rect.grid { fill: #fff; }
   text { text-anchor: middle; font-size: 14px; height: 12px; }
   text.anchor_start { text-anchor: start; }
