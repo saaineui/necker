@@ -14,20 +14,21 @@ class LandingController < ApplicationController
     income_column = datasheet.columns.find_by(name: 'Median Income (2015)')
     
     @collection = datasheet.rows.order(:id).map do |row| 
+      [
         [
-          [
-            row.cells.where(column: margin_column).first.text_val.to_d,
-            row.cells.where(column: income_column).first.text_val.to_d
-          ]
+          row.cells.where(column: margin_column).first.text_val.to_d,
+          row.cells.where(column: income_column).first.text_val.to_d
         ]
+      ]
     end
     
     @options = { 
-        title: 'Clinton-Kaine Margin (%) vs. Median Income ($ per year)', 
-        columns: ['50 U.S. States and District of Columbia'],
-        rows: datasheet.label.cells.order(:row_id).pluck(:text_val),
-        height: 600,
-        width: 900
+      title: 'Clinton-Kaine Margin (%) vs. Median Income ($ per year)', 
+      columns: ['50 U.S. States and District of Columbia'],
+      rows: datasheet.label.cells.order(:row_id).pluck(:text_val),
+      height: 600,
+      width: 900,
+      data_formatters: %i[percent currency]
     }
   rescue
     nil
@@ -41,20 +42,20 @@ class LandingController < ApplicationController
     avg_ratings = datasheet.columns.find_by(name: 'Average Rating')
     
     @collection = datasheet.rows.order(:id).map do |row| 
+      [
         [
-          [
-            row.cells.where(column: my_ratings).first.text_val.to_d,
-            row.cells.where(column: avg_ratings).first.text_val.to_d
-          ]
+          row.cells.where(column: my_ratings).first.text_val.to_d,
+          row.cells.where(column: avg_ratings).first.text_val.to_d
         ]
+      ]
     end
     
     @options = { 
-        title: datasheet.name, 
-        columns: ['Book Title'],
-        rows: datasheet.label.cells.order(:row_id).pluck(:text_val),
-        height: 600,
-        width: 900
+      title: datasheet.name, 
+      columns: ['Book Title'],
+      rows: datasheet.label.cells.order(:row_id).pluck(:text_val),
+      height: 600,
+      width: 900
     }
   rescue
     nil
