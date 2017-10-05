@@ -17,7 +17,7 @@ class DatasheetsController < ApplicationController
       row.cells.where(column: visible_cols).order(:column_id).pluck(:text_val) 
     end
 
-    @options = { title: @datasheet.name, columns: visible_cols.map(&:name), 
+    @options = { title: @datasheet.name, series_labels: visible_cols.map(&:name), 
                  rows: rows(page), max_values: max_values(visible_cols), data_formatters: formatters }
     
     @pages = (1..(@datasheet.rows_count / ROWS_PER_PAGE + 1)).to_a

@@ -24,7 +24,7 @@ class LandingController < ApplicationController
     
     @options = { 
       title: 'Clinton-Kaine Margin (%) vs. Median Income ($ per year)', 
-      columns: ['50 U.S. States and District of Columbia'],
+      series_labels: ['50 U.S. States and District of Columbia'],
       rows: datasheet.label.cells.order(:row_id).pluck(:text_val),
       height: 600,
       width: 900,
@@ -52,7 +52,6 @@ class LandingController < ApplicationController
     
     @options = { 
       title: datasheet.name, 
-      columns: ['Book Title'],
       rows: datasheet.label.cells.order(:row_id).pluck(:text_val),
       height: 600,
       width: 900
@@ -81,7 +80,7 @@ class LandingController < ApplicationController
     
     @options = { 
        title: 'Voter Participation by State Type', 
-       columns: ['% of Voting-Eligible Population that Voted in 2016 U.S. General Election'], 
+       series_labels: ['% of Voting-Eligible Population that Voted in 2016 U.S. General Election'], 
        data_formatters: [:percent], 
        rows: ['Swing States', 'Non-Swing States', 'Non-Swing Blue', 'Non-Swing Red'], 
        bar_width: 100 
