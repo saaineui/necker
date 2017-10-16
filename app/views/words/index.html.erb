@@ -6,11 +6,13 @@
 </div>
 <section class="ac-clearfix">
   <h3><em>alt-right</em></h3>
-  <%= bar_chart_for(*@alt_right['2016'].values) %>
-  <%= bar_chart_for(*@alt_right['2017'].values) %>
+  <% @alt_right.each do |args| %>
+    <%= bar_chart_for(*args.values) %>
+  <% end %>
 </section>
 <section class="ac-clearfix">
   <h3><em>identity politics</em></h3>
-  <%= bar_chart_for(*@identity['2016'].values) %>
-  <%= bar_chart_for(*@identity['2017'].values) %>
+  <% @identity.each do |args| %>
+    <%= bar_chart_for(*args.values) %>
+  <% end %>
 </section>
