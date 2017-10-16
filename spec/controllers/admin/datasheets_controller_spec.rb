@@ -4,7 +4,7 @@ RSpec.describe Admin::DatasheetsController, type: :controller do
   fixtures :admins, :datasheets, :rows, :columns
   let(:admin) { admins(:eve) }
   let(:datasheet) { datasheets(:donors) }
-  let(:good_csv) { fixture_file_upload('files/co2_per_capita.csv', 'text/csv') }
+  let(:good_csv) { fixture_file_upload('files/state_data.csv', 'text/csv') }
   let(:bad_csv) { fixture_file_upload('files/co2_per_capita_numbers.csv', 'text/csv') }
   let(:good_datasheet) { { name: 'Good Sheet', file: good_csv } }
   let(:bad_csv_datasheet) { { name: 'Bad Sheet', file: bad_csv } }
@@ -99,7 +99,7 @@ RSpec.describe Admin::DatasheetsController, type: :controller do
 
           expect(response).to redirect_to(admin_datasheet_path(new_datasheet))
           expect(new_datasheet.name).to eq(good_datasheet[:name])
-          expect(new_datasheet.rows_count).to eq(5)
+          expect(new_datasheet.rows_count).to eq(10)
         end
       end
 

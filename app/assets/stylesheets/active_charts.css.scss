@@ -96,7 +96,7 @@ svg.ac-chart {
   line.ac-grid-line, rect { stroke-width: 1px; stroke: $ac-border; }
   rect.grid { fill: #fff; }
   text { text-anchor: middle; font-size: 14px; height: 12px; }
-  text.anchor_start { text-anchor: start; }
+  text.anchor_start, text.ac-y-label { text-anchor: start; }
 }
 
 svg.ac-chart.ac-scatter-plot {
