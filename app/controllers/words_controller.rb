@@ -9,7 +9,7 @@ class WordsController < ApplicationController
     
     ranges = {
       'January 2016 - July 2016' => Date.new(2016, 1, 1)..Date.new(2016, 7, 31),
-      'August 2016 - February 2017' => Date.new(2016, 8, 1)..Date.new(2016, 2, 29),
+      'August 2016 - February 2017' => Date.new(2016, 8, 1)..Date.new(2017, 2, 28),
       'March 2017 - September 2017' => Date.new(2017, 3, 1)..Date.new(2017, 9, 30)
     }
     

@@ -79,18 +79,18 @@ class LandingController < ApplicationController
     end
     
     @options = { 
-       title: 'Voter Participation by State Type', 
-       series_labels: ['% of Voting-Eligible Population that Voted in 2016 U.S. General Election'], 
-       data_formatters: [:percent], 
-       rows: ['Swing States', 'Non-Swing States', 'Non-Swing Blue', 'Non-Swing Red'], 
-       bar_width: 100 
+      title: 'Voter Participation by State Type', 
+      series_labels: ['% of Voting-Eligible Population that Voted in 2016 U.S. General Election'], 
+      data_formatters: [:percent], 
+      rows: ['Swing States', 'Non-Swing States', 'Non-Swing Blue', 'Non-Swing Red'], 
+      bar_width: 100 
     }
     
     @collection = [swing_states, other_states, blue_other_states, red_other_states].map do |group| 
       voted = Cell.where(row: group, column: voted_column).pluck(:text_val).map(&:to_d).reduce(:+)
       vep = Cell.where(row: group, column: vep_column).pluck(:text_val).map(&:to_d).reduce(:+)
     
-      [ (voted / vep).round(3) ]
+      [(voted / vep).round(3)]
     end
   rescue
     nil

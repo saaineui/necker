@@ -24,7 +24,7 @@ class Word < ApplicationRecord
   private
     
   def site_snapshots_columns
-    MEDIA.values.map { |d| self.send(d[:snapshots]) }
+    MEDIA.values.map { |d| send(d[:snapshots]) }
   end
   
   def name_record

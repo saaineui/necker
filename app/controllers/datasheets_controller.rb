@@ -12,7 +12,7 @@ class DatasheetsController < ApplicationController
     @rows_per_page = long_names ? 10 : 13
     page = params[:p].to_i.positive? ? params[:p].to_i : 1
     visible_cols = visible_columns
-    max_values = ratings ? [5,5] : max_values(visible_cols)
+    max_values = ratings ? [5, 5] : max_values(visible_cols)
     
     @collection = @datasheet.rows.order(:id).limit(@rows_per_page).offset(offset(page)).map do |row| 
       row.cells.where(column: visible_cols).order(:column_id).pluck(:text_val) 
