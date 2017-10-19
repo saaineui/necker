@@ -24,4 +24,10 @@ RSpec.describe LandingController, type: :controller do
     expect(response).to be_success
     expect(response).to render_template(:voter_participation)
   end
+
+  it '#words_line renders successfully' do
+    get 'words_line'
+    expect(response).to be_success
+    expect(response).to render_template(:words_line)
+  end
 end

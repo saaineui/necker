@@ -4,7 +4,8 @@ class LandingController < ApplicationController
       'Voter Participation by State Type' => voter_participation_path,
       'Terms of Interest on News Hompages' => words_path,
       'State Data Scatter' => states_xy_path,
-      'Book Ratings Scatter' => books_xy_path
+      'Book Ratings Scatter' => books_xy_path,
+      'Terms of Interest Line Charts' => words_line_path,
     }
   end
   
