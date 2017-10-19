@@ -96,6 +96,8 @@ class LandingController < ApplicationController
     nil
   end
   
+  def words_line; end
+  
   private
   
   def render_scatter

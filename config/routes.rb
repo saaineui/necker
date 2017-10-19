@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/voter_participation', to: 'landing#voter_participation', as: 'voter_participation'
   get '/states_xy', to: 'landing#states_xy', as: 'states_xy'
   get '/books_xy', to: 'landing#books_xy', as: 'books_xy'
+  get '/words_line', to: 'landing#words_line', as: 'words_line'
   
   resources :datasheets, only: %i[index show]
   resources :words, only: %i[index]

@@ -82,5 +82,5 @@
   
 })();
 
-ActiveCharts.activateTooltips(['ac-scatter-plot-dot'], ['ac-scatter-plot-label'], 'click');
+ActiveCharts.activateTooltips(['ac-triggerable'], ['ac-toggleable'], 'click');
 

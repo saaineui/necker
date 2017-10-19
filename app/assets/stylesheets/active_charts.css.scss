@@ -94,15 +94,17 @@ svg.ac-chart {
   margin: 0 auto 1em auto;
   
   line.ac-grid-line, rect { stroke-width: 1px; stroke: $ac-border; }
+  path.ac-line-chart-line { stroke-width: 1px; fill: transparent; }
   rect.grid { fill: #fff; }
   text { text-anchor: middle; font-size: 14px; height: 12px; }
   text.anchor_start, text.ac-y-label { text-anchor: start; }
+  text.ac-toggleable { text-anchor: start; opacity: 0; cursor: pointer; z: 2; }
+  text.ac-toggleable:hover { opacity: 0.2; }
+  .ac-triggerable { cursor: pointer; z: 1; }
 }
 
 svg.ac-chart.ac-scatter-plot {
-  circle.ac-scatter-plot-dot { r: 3px; stroke-width: 3px; fill: transparent; cursor: pointer; z: 1; }
-  text.ac-scatter-plot-label { text-anchor: start; opacity: 0; cursor: pointer; z: 2; }
-  text.ac-scatter-plot-label:hover { opacity: 0.2; }
+  circle.ac-scatter-plot-dot { r: 3px; stroke-width: 3px; fill: transparent; }
 }
 
 ul.ac-chart.ac-series-legend {
@@ -125,7 +127,8 @@ ul.ac-chart.ac-series-legend {
 
 @each $name, $color in $ac-series {
   rect.ac-bar-chart-bar.#{$name} { fill: $color; }
-  circle.ac-scatter-plot-dot.#{$name} { stroke: $color; }
+  path.ac-line-chart-line.#{$name},
+    circle.ac-scatter-plot-dot.#{$name} { stroke: $color; }
   li.#{$name} { border-color: $color; }
 }
 
