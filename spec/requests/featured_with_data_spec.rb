@@ -25,15 +25,14 @@ RSpec.describe 'FeaturedWithData', type: :request do
     end
   end
 
-  describe 'GET /books_xy' do
+  describe 'GET /active_charts' do
     it 'render with data' do
-      sign_in(admin)
-      post admin_datasheets_path, params: { datasheet: books_datasheet }
-    
-      get books_xy_path
+      get active_charts_path
       expect(response).to have_http_status(200)
-      expect(response).to render_template('scatter')
-      assert_select 'circle', 14
+      expect(response).to render_template('active_charts')
+      assert_select '.ac-bar-chart-bar', 30
+      assert_select '.ac-line-chart-line', 4
+      assert_select 'circle', 26*3+6
     end
   end
 end

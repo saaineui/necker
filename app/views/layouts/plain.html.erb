@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ActiveCharts - Chart Gallery</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= favicon_link_tag 'favicon.png' %>
+    <%= favicon_link_tag 'favicon.png', rel: 'apple-touch-icon', type: 'image/png' %>
+  </head>
+
+  <body>
+    <div id="full-container">
+      <%= yield %>
+    </div>
+    <footer>
+      <%= yield :footer %>
+    </footer>
+    <%= javascript_include_tag 'application' %>
+  </body>
+</html>

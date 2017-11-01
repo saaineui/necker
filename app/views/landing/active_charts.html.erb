@@ -1,0 +1,59 @@
+<header>
+  <h1>ActiveCharts Ruby Gem</h1>
+  <h2>Chart Gallery</h2>
+</header>
+
+<table id="charts">
+  <thead>
+    <tr>
+      <th>Chart Type</th>
+      <th>Single Series</th>
+      <th>Multi-Series</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id="bar-charts">
+      <th>
+        Bar Charts 
+        <span class="tiny-chart"><%= bar_chart(*@args[:tiny].values) %></span>
+      </th>
+      <td>
+        <%= bar_chart(*@args[:bar].values) %>
+      </td>
+      <td>
+        <%= bar_chart(*@args[:multi_bar].values) %>
+      </td>
+    </tr>
+
+    <tr id="scatter-plots">
+      <th>
+        Scatter Plots 
+        <span class="tiny-chart xy-data"><%= scatter_plot(*@args[:tiny_xy].values) %></span>
+      </th>
+      <td>
+        <%= scatter_plot(*@args[:scatter].values) %>
+      </td>
+      <td>
+        <%= scatter_plot(*@args[:multi_scatter].values) %>
+      </td>
+    </tr>
+
+    <tr id="line-charts">
+      <th>
+        Line Charts 
+        <span class="tiny-chart xy-data"><%= line_chart(*@args[:tiny_xy].values) %></span>
+      </th>
+      <td>
+        <%= line_chart(*@args[:line].values) %>
+      </td>
+      <td>
+        <%= line_chart(*@args[:multi_line].values) %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+    <% content_for :footer do %>
+      <%= link_to 'View on GitHub', 'https://github.com/saaineui/active_charts', target: '_blank' %>
+    <% end %>
+

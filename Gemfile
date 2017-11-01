@@ -14,13 +14,12 @@ gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'jbuilder', '~> 2.5'
-gem 'active_charts', '0.1.6', git: 'https://github.com/saaineui/active_charts'
+gem 'active_charts', '0.1.7', git: 'https://github.com/saaineui/active_charts'
 gem 'httpclient'
 
 group :development, :test do
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 3.5'
-  gem 'jasmine' # bundle with active_charts
 end
 
 group :development do

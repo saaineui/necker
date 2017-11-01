@@ -1,12 +1,9 @@
 <%= render partial: 'shared/words_intro' %>
 <section class="ac-clearfix">
   <h3><em>alt-right</em></h3>
-  
   <% @alt_right.each do |args| %>
     <%= bar_chart_for(*args.values) %>
   <% end %>
-  
-  <%= scatter_plot_for(Word.where(word: 'alt-right'), [:start_date, :new_york_times, :washington_post, :wall_street_journal], title: 'Alt-Right Scatter', data_formatters: [:date], width: 1000) %>
 </section>
 
 <section class="ac-clearfix">

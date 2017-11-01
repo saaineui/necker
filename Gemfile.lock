@@ -1,9 +1,11 @@
 GIT
   remote: https://github.com/saaineui/active_charts
-  revision: af645578b1c26e973e38c26868dc5cf0151065b1
+  revision: a08730da1d1d7bfe1d72b37190b7318bb210c87b
   specs:
-    active_charts (0.1.6)
+    active_charts (0.1.7)
       rails (>= 5.0.1)
+      sass-rails (~> 5.0)
+      thor
 
 GIT
   remote: https://github.com/thoughtbot/shoulda-matchers.git
@@ -72,12 +74,6 @@ GEM
       activesupport (>= 4.2.0)
     httpclient (2.8.3)
     i18n (0.8.6)
-    jasmine (2.6.0)
-      jasmine-core (>= 2.6.0, < 3.0.0)
-      phantomjs
-      rack (>= 1.2.1)
-      rake
-    jasmine-core (2.6.4)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -102,7 +98,6 @@ GEM
       mini_portile2 (~> 2.2.0)
     orm_adapter (0.5.0)
     pg (0.21.0)
-    phantomjs (2.1.1.0)
     puma (3.10.0)
     rack (2.0.3)
     rack-test (0.6.3)
@@ -204,10 +199,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_charts (= 0.1.6)!
+  active_charts (= 0.1.7)!
   devise
   httpclient
-  jasmine
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   pg

@@ -7,12 +7,6 @@ RSpec.describe LandingController, type: :controller do
     expect(response).to render_template(:featured)
   end
 
-  it '#books_xy renders successfully' do
-    get 'books_xy'
-    expect(response).to be_success
-    expect(response).to render_template(:scatter)
-  end
-
   it '#states_xy renders successfully' do
     get 'states_xy'
     expect(response).to be_success
@@ -25,9 +19,9 @@ RSpec.describe LandingController, type: :controller do
     expect(response).to render_template(:voter_participation)
   end
 
-  it '#words_line renders successfully' do
-    get 'words_line'
+  it '#active_charts renders successfully' do
+    get 'active_charts'
     expect(response).to be_success
-    expect(response).to render_template(:words_line)
+    expect(response).to render_template(:active_charts)
   end
 end

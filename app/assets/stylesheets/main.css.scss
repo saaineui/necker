@@ -1,7 +1,17 @@
 $primary: #a5f;
 $pale-primary: rgba(170, 85, 255, 0.4);
 
+html, body { margin: 0; padding: 0; }
 body { text-align: center; font-family: HelveticaNeue-Light, Helvetica, sans-serif; font-weight: 300; }
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+.clearfix:after {
+    clear: both;
+}
 
 footer { position: fixed; bottom: 0px; left: 0px; padding: 0.5em 0px; width: 100%; min-height: 1em; border-top: 1px solid #ccc; background: rgba(255, 255, 255, 0.88) }
 
@@ -54,6 +64,25 @@ header svg.necker-cube { width: 80px; }
 
 .intro { text-align: left; max-width: 700px; margin: 0 auto; }
 
+/* ActiveCharts gallery */
+#full-container { margin: 1em auto; }
+#charts { 
+  td, th { border: none; padding: 0.5em 0.125em; }
+  th { font-size: 1.25em; background: $pale-primary; color: #fff; text-align: center; }
+}
+.tiny-chart { 
+  width: 200px; max-width: 100%; display: block; margin: -1em auto -2em auto;
+  svg.ac-chart { 
+    background: transparent; 
+    line.ac-grid-line { stroke: #fff; }
+    rect.grid { fill: transparent; stroke: none; } 
+    text { fill: transparent; }
+  }
+  path.ac-line-chart-line.series-a,
+    circle.ac-scatter-plot-dot.series-a { stroke: #fff; }
+  rect.series-a { fill: #fff; }
+}
+
 @media only screen and (max-width: 1000px) {
   .wrap { width: 48%; }
 }
@@ -61,4 +90,9 @@ header svg.necker-cube { width: 80px; }
 @media only screen and (max-width: 720px) {
   .wrap { width: 98%; max-width: 400px; float: none; margin: 0 auto 1em auto; }
   .home-link span { min-height: 0px; }
+  #charts { 
+    display: block; 
+    tbody, tr, th, td { display: block; box-sizing: border-box; width: 100%; }
+    thead { display: none; }
+  }
 }

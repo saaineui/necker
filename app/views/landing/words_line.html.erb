@@ -1,7 +1,0 @@
-<%= render partial: 'shared/words_intro' %>
-<section class="ac-clearfix">
-  <%= line_chart_for(Word.where(word: 'alt-right').order(:start_date), [:start_date, :new_york_times, :wall_street_journal, :washington_post], title: 'Alt-Right on Homepages of Major U.S. Newspapers', data_formatters: [:date], width: 1200) %>
-</section>
-<section class="ac-clearfix">
-  <%= line_chart_for(Word.where(word: 'identity politics').order(:start_date), [:start_date, :new_york_times, :wall_street_journal, :washington_post], title: 'Identity Politics on Homepages of Major U.S. Newspapers', data_formatters: [:date], width: 1200) %>
-</section>
