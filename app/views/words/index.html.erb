@@ -1,15 +1,11 @@
 <%= render partial: 'shared/words_intro' %>
 <section class="ac-clearfix">
   <h3><em>alt-right</em></h3>
-  <% @alt_right.each do |args| %>
-    <%= bar_chart_for(*args.values) %>
-  <% end %>
+  <%= line_chart_for(*@alt_right.values) %>
 </section>
 
 <section class="ac-clearfix">
   <h3><em>identity politics</em></h3>
-  <% @identity.each do |args| %>
-    <%= bar_chart_for(*args.values) %>
-  <% end %>
+  <%= line_chart_for(*@identity.values) %>
 </section>
 
