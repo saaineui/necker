@@ -27,3 +27,4 @@ spec/examples.txt
 private_notes.txt
 
 .DS_Store
+*.swp
