@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/saaineui/active_charts
-  revision: a08730da1d1d7bfe1d72b37190b7318bb210c87b
+  revision: 3318e1146d7d794625e3b7965df536991d982350
   specs:
-    active_charts (0.1.7)
+    active_charts (0.1.8)
       rails (>= 5.0.1)
       sass-rails (~> 5.0)
       thor
@@ -199,7 +199,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_charts (= 0.1.7)!
+  active_charts (= 0.1.8)!
   devise
   httpclient
   jbuilder (~> 2.5)

@@ -1,6 +1,6 @@
 # Necker
 
-<img src="https://travis-ci.org/saaineui/necker.svg?branch=master" />
+[![View on Travis](https://travis-ci.org/saaineui/necker.svg?branch=master)](https://travis-ci.org/saaineui/necker)
 
 Repository of open data visualizations.
 

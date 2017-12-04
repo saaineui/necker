@@ -119,7 +119,7 @@ class LandingController < ApplicationController
       [[x, row[1]], [x, row[2]]]
     end
     
-    data_formatters = %i[none delimiter]
+    data_formatters = %i[year delimiter]
 
     single_xy_base = { 
       collection: single_coll_xy, 
@@ -144,8 +144,8 @@ class LandingController < ApplicationController
       
       scatter: single_xy_base,
       multi_scatter: multi_xy_base,
-      line: single_xy_base,
-      multi_line: multi_xy_base,
+      line: single_xy_base.dup,
+      multi_line: multi_xy_base.dup,
       
       tiny: { collection: [[1], [2], [3]], options: { height: 200 } },
       tiny_xy: { 
@@ -154,8 +154,8 @@ class LandingController < ApplicationController
       }
     }
     
-    @args[:line][:options][:title] = 'Line Chart'
-    @args[:multi_line][:options][:title] = 'Multi-Series Line Chart'
+    @args[:line][:options] = @args[:line][:options].merge(title: 'Line Chart')
+    @args[:multi_line][:options] = @args[:multi_line][:options].merge(title: 'Multi-Series Line Chart')
     
     render layout: 'plain'
   end

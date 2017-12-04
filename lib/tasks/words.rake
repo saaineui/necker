@@ -1,11 +1,13 @@
 namespace :words do
   desc 'Scrape date(s) specified for word frequency on news sites'
-  task :scrape, [:start_date, :snapshots] => :environment do |_, args|
+  task :scrape, [:start_date, :snapshots, :term] => :environment do |_, args|
     start_date = Date.new(*args.start_date.split('-').map(&:to_i))
     end_date = start_date + (args.snapshots.to_i - 1).days
     USER_AGENT = 'https://github.com/saaineui/necker'
     
-    terms = ['alt-right', 'identity politics'].map do |word|
+    terms = args.term ? [args.term] : ['alt-right', 'identity politics']
+
+    terms = terms.map do |word|
       new_word = Word.create(word: word, start_date: start_date, snapshots: args.snapshots.to_i)
       puts new_word.name + ' created.'
       new_word
